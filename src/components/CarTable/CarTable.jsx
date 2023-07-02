@@ -6,6 +6,7 @@ import {
   // PaginationWrapper,
   // PaginationList,
 } from "../CarTable/CarTable.styled";
+import ActionsDropdown from "../ActionsDropdown/ActionsDropdown";
 
 const CarTable = () => {
   const [fetchCars, setFetchCars] = useState([]);
@@ -45,6 +46,14 @@ const CarTable = () => {
     );
   };
 
+  const handleEdit = (id) => {
+    console.log("Edit record:", id);
+  };
+
+  const handleDelete = (id) => {
+    console.log("Delete record:", id);
+  };
+
   return (
     <CarTableWrapper>
       <SearchInput
@@ -62,6 +71,8 @@ const CarTable = () => {
             <th>Color</th>
             <th>Year</th>
             <th>Price</th>
+            <th>Availability</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -73,6 +84,13 @@ const CarTable = () => {
               <td>{car.car_color}</td>
               <td>{car.car_model_year}</td>
               <td>{car.price}</td>
+              <td>{car.availability.toString()}</td>
+              <td>
+                <ActionsDropdown
+                  onEdit={() => handleEdit(car.id)}
+                  onDelete={() => handleDelete(car.id)}
+                />
+              </td>
             </tr>
           ))}
         </tbody>
