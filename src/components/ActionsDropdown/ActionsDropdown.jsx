@@ -3,15 +3,24 @@ import Modal from "../Modal/Modal";
 
 const ActionsDropdown = ({ car, onEdit, onDelete }) => {
   const [selectedOption, setSelectedOption] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
-    setIsModalOpen(true);
+    if (e.target.value === "edit") {
+      setIsEditModalOpen(true);
+    } else if (e.target.value === "delete") {
+      setIsDeleteModalOpen(true);
+    }
   };
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
+  const handleEditModalClose = () => {
+    setIsEditModalOpen(false);
+  };
+
+  const handleDeleteModalClose = () => {
+    setIsDeleteModalOpen(false);
   };
 
   const handleConfirmAction = () => {
@@ -20,7 +29,8 @@ const ActionsDropdown = ({ car, onEdit, onDelete }) => {
     } else if (selectedOption === "delete") {
       onDelete(car.id);
     }
-    setIsModalOpen(false);
+    setIsEditModalOpen(false);
+    setIsDeleteModalOpen(false);
   };
 
   return (
@@ -33,9 +43,9 @@ const ActionsDropdown = ({ car, onEdit, onDelete }) => {
           Delete
         </button>
       </div>
-      {isModalOpen && (
+      {isEditModalOpen && (
         <Modal
-          onClose={handleModalClose}
+          onClose={handleEditModalClose}
           carData={{
             company: car.car,
             model: car.car_model,
@@ -45,6 +55,24 @@ const ActionsDropdown = ({ car, onEdit, onDelete }) => {
             price: car.price,
             availability: car.availability,
           }}
+          onSave={handleConfirmAction}
+          isEditModal
+        />
+      )}
+      {isDeleteModalOpen && (
+        <Modal
+          onClose={handleDeleteModalClose}
+          carData={{
+            company: car.car,
+            model: car.car_model,
+            vin: car.car_vin,
+            year: car.car_model_year,
+            color: car.car_color,
+            price: car.price,
+            availability: car.availability,
+          }}
+          onSave={handleConfirmAction}
+          isDeleteModal
         />
       )}
     </>

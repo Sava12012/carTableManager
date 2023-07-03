@@ -10,6 +10,15 @@
   -webkit-text-size-adjust: 100%;
 }
 
+p {
+  margin: 0;
+}
+
+h3 {
+  margin: 0;
+  text-align: center;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

@@ -25,6 +25,19 @@ const CarTable = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    // Зберігаємо список автомобілів у локальному сховищі браузера
+    localStorage.setItem("cars", JSON.stringify(fetchCars));
+  }, [fetchCars]);
+
+  useEffect(() => {
+    // Отримуємо список автомобілів з локального сховища браузера при завантаженні сторінки
+    const carsData = localStorage.getItem("cars");
+    if (carsData) {
+      setFetchCars(JSON.parse(carsData));
+    }
+  }, []);
+
   const filterFetchCars = () => {
     if (!fetchCars) return [];
     return fetchCars.filter(
@@ -49,7 +62,8 @@ const CarTable = () => {
   };
 
   const handleDelete = (id) => {
-    console.log("Delete record:", id);
+    const updatedCars = fetchCars.filter((car) => car.id !== id);
+    setFetchCars(updatedCars);
   };
 
   return (

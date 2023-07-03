@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ModalOverlay, ModalContent } from "../Modal/Modal.styled";
 
-const Modal = ({ onClose, carData }) => {
+const Modal = ({ onClose, carData, onSave, isDeleteModal, isEditModal }) => {
   const [color, setColor] = useState(carData.color);
   const [price, setPrice] = useState(carData.price);
   const [availability, setAvailability] = useState(carData.availability);
@@ -25,36 +25,40 @@ const Modal = ({ onClose, carData }) => {
       price: price,
       availability: availability,
     };
-    // Виконайте потрібні дії з оновленими даними автомобіля
 
+    onSave(updatedCar);
     onClose();
   };
 
   return (
     <ModalOverlay>
       <ModalContent>
-        <h3>Edit Modal</h3>
+        <h3>{isEditModal ? "Edit Modal" : "Delete Modal"}</h3>
         <p>Company: {carData.company}</p>
         <p>Model: {carData.model}</p>
         <p>VIN: {carData.vin}</p>
         <p>Year: {carData.year}</p>
-        <label>
-          Color:
-          <input type="text" value={color} onChange={handleColorChange} />
-        </label>
-        <label>
-          Price:
-          <input type="text" value={price} onChange={handlePriceChange} />
-        </label>
-        <label>
-          Availability:
-          <input
-            type="text"
-            value={availability}
-            onChange={handleAvailabilityChange}
-          />
-        </label>
-        <button onClick={handleSave}>Save</button>
+        {isEditModal && (
+          <>
+            <label>
+              Color:
+              <input type="text" value={color} onChange={handleColorChange} />
+            </label>
+            <label>
+              Price:
+              <input type="text" value={price} onChange={handlePriceChange} />
+            </label>
+            <label>
+              Availability:
+              <input
+                type="text"
+                value={availability}
+                onChange={handleAvailabilityChange}
+              />
+            </label>
+          </>
+        )}
+        <button onClick={handleSave}>{isEditModal ? "Save" : "Delete"}</button>
         <button onClick={onClose}>Close</button>
       </ModalContent>
     </ModalOverlay>
