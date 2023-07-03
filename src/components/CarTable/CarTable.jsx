@@ -3,8 +3,6 @@ import {
   CarTableWrapper,
   SearchInput,
   Table,
-  // PaginationWrapper,
-  // PaginationList,
 } from "../CarTable/CarTable.styled";
 import ActionsDropdown from "../ActionsDropdown/ActionsDropdown";
 
