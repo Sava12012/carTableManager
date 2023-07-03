@@ -44,8 +44,8 @@ const CarTable = () => {
     );
   };
 
-  const handleEdit = (id) => {
-    console.log("Edit record:", id);
+  const handleEdit = (car) => {
+    console.log("Edit record:", car);
   };
 
   const handleDelete = (id) => {
@@ -85,8 +85,9 @@ const CarTable = () => {
               <td>{car.availability.toString()}</td>
               <td>
                 <ActionsDropdown
-                  onEdit={() => handleEdit(car.id)}
-                  onDelete={() => handleDelete(car.id)}
+                  car={car}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
                 />
               </td>
             </tr>

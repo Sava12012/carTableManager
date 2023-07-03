@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "../Modal/Modal";
 
-const ActionsDropdown = ({ onEdit, onDelete }) => {
+const ActionsDropdown = ({ car, onEdit, onDelete }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -16,25 +16,35 @@ const ActionsDropdown = ({ onEdit, onDelete }) => {
 
   const handleConfirmAction = () => {
     if (selectedOption === "edit") {
-      onEdit();
+      onEdit(car);
     } else if (selectedOption === "delete") {
-      onDelete();
+      onDelete(car.id);
     }
     setIsModalOpen(false);
   };
 
   return (
     <>
-      <select value={selectedOption} onChange={handleOptionChange}>
-        <option value="edit">Edit</option>
-        <option value="delete">Delete</option>
-      </select>
+      <div>
+        <button value="edit" onClick={handleOptionChange}>
+          Edit
+        </button>
+        <button value="delete" onClick={handleOptionChange}>
+          Delete
+        </button>
+      </div>
       {isModalOpen && (
         <Modal
           onClose={handleModalClose}
-          action={
-            selectedOption.charAt(0).toUpperCase() + selectedOption.slice(1)
-          }
+          carData={{
+            company: car.car,
+            model: car.car_model,
+            vin: car.car_vin,
+            year: car.car_model_year,
+            color: car.car_color,
+            price: car.price,
+            availability: car.availability,
+          }}
         />
       )}
     </>
