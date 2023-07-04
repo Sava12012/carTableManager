@@ -3,27 +3,43 @@ import {
   CarTableWrapper,
   SearchInput,
   Table,
-  // PaginationWrapper,
-  // PaginationList,
 } from "../CarTable/CarTable.styled";
+import ActionsDropdown from "../ActionsDropdown/ActionsDropdown";
 
 const CarTable = () => {
   const [fetchCars, setFetchCars] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://myfakeapi.com/api/cars/");
-        const data = await response.json();
-        console.log(data.cars, "data");
-        setFetchCars(data.cars);
-      } catch (error) {
-        console.log("Error fetching car data:", error);
-      }
-    };
+    const carsData = JSON.parse(localStorage.getItem("cars"));
+    if (carsData && carsData.length !== 0) {
+      setFetchCars(carsData);
+    } else if (!setFetchCars) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch("https://myfakeapi.com/api/cars/");
+          const data = await response.json();
+          // console.log(data.cars, "data");
+          setFetchCars(data.cars);
+        } catch (error) {
+          console.log("Error fetching car data:", error);
+        }
+      };
+      fetchData();
+    }
+  }, []);
 
-    fetchData();
+  useEffect(() => {
+    // Зберігаємо список автомобілів у локальному сховищі браузера
+    localStorage.setItem("cars", JSON.stringify(fetchCars));
+  }, [fetchCars]);
+
+  useEffect(() => {
+    // Отримуємо список автомобілів з локального сховища браузера при завантаженні сторінки
+    // const carsData = localStorage.getItem("cars");
+    // if (carsData) {
+    //   setFetchCars(JSON.parse(carsData));
+    // }
   }, []);
 
   const filterFetchCars = () => {
@@ -45,8 +61,28 @@ const CarTable = () => {
     );
   };
 
+  const handleEdit = (car) => {
+    const updatedCars = fetchCars.map((auto) => {
+      if (auto.id === car.id) {
+        auto = { ...auto, ...car };
+      }
+      return auto;
+    });
+    setFetchCars(updatedCars);
+  };
+
+  const handleDelete = (id) => {
+    const updatedCars = fetchCars.filter((car) => car.id !== id);
+    setFetchCars(updatedCars);
+  };
+
+  // const handleAddModalOpen = () => {
+  //   setIsAddModalOpen(true);
+  // };
+
   return (
     <CarTableWrapper>
+      {/* <button onClick={handleAddModalOpen}>Add car</button> */}
       <SearchInput
         type="text"
         placeholder="Search"
@@ -62,6 +98,8 @@ const CarTable = () => {
             <th>Color</th>
             <th>Year</th>
             <th>Price</th>
+            <th>Availability</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -73,6 +111,14 @@ const CarTable = () => {
               <td>{car.car_color}</td>
               <td>{car.car_model_year}</td>
               <td>{car.price}</td>
+              <td>{car.availability.toString()}</td>
+              <td>
+                <ActionsDropdown
+                  car={car}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
+              </td>
             </tr>
           ))}
         </tbody>
