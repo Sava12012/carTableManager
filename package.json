@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://sava12012.github.io/carTableManager/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -16,6 +17,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.1",
+    "react-router-dom": "^6.14.1",
     "styled-components": "^6.0.1"
   },
   "devDependencies": {
