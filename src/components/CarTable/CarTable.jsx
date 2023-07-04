@@ -16,25 +16,30 @@ const CarTable = () => {
   const [carsPerPage] = useState(10);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://myfakeapi.com/api/cars/");
+        const data = await response.json();
+        setFetchCars(data.cars);
+      } catch (error) {
+        console.log("Error fetching car data:", error);
+      }
+    };
+
     const carsData = JSON.parse(localStorage.getItem("cars"));
-    if (carsData && carsData.length !== 0) {
+    console.log("carsData", carsData);
+    if (carsData && carsData.length) {
       setFetchCars(carsData);
-    } else if (!setFetchCars) {
-      const fetchData = async () => {
-        try {
-          const response = await fetch("https://myfakeapi.com/api/cars/");
-          const data = await response.json();
-          setFetchCars(data.cars);
-        } catch (error) {
-          console.log("Error fetching car data:", error);
-        }
-      };
+    } else {
       fetchData();
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cars", JSON.stringify(fetchCars));
+    console.log(fetchCars, "fetchCars");
+
+    if (fetchCars.length != 0)
+      localStorage.setItem("cars", JSON.stringify(fetchCars));
   }, [fetchCars]);
 
   const filterFetchCars = () => {
@@ -59,7 +64,7 @@ const CarTable = () => {
   const handleEdit = (car) => {
     const updatedCars = fetchCars.map((auto) => {
       if (auto.id === car.id) {
-        auto = { ...auto, ...car };
+        return { ...auto, ...car };
       }
       return auto;
     });
@@ -80,7 +85,7 @@ const CarTable = () => {
   };
 
   const handleAddCar = (car) => {
-    const updatedCars = [...fetchCars, car];
+    const updatedCars = [car, ...fetchCars];
     setFetchCars(updatedCars);
     setIsAddModalOpen(false);
   };
@@ -127,7 +132,6 @@ const CarTable = () => {
               <td>{car.availability.toString()}</td>
               <td>
                 <ActionsDropdown
-                  key={car.id}
                   car={car}
                   onEdit={handleEdit}
                   onDelete={handleDelete}
