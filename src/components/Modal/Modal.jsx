@@ -27,6 +27,7 @@ const Modal = ({
   const handlAddFormSubmit = (data) => {
     const updatedCar = {
       ...carData,
+      id: Date.now().toString(),
       car: data.company,
       car_model: data.model,
       car_model_year: data.year,
@@ -41,7 +42,7 @@ const Modal = ({
   };
 
   const handleDeleteBtnClick = () => {
-    onSave();
+    onSave(carData.id);
     onClose();
   };
 
