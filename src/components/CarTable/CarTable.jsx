@@ -27,7 +27,6 @@ const CarTable = () => {
     };
 
     const carsData = JSON.parse(localStorage.getItem("cars"));
-    console.log("carsData", carsData);
     if (carsData && carsData.length) {
       setFetchCars(carsData);
     } else {
@@ -36,8 +35,6 @@ const CarTable = () => {
   }, []);
 
   useEffect(() => {
-    console.log(fetchCars, "fetchCars");
-
     if (fetchCars.length != 0)
       localStorage.setItem("cars", JSON.stringify(fetchCars));
   }, [fetchCars]);
