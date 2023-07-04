@@ -5,8 +5,20 @@ export const CarTableWrapper = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  margin-bottom: 10px;
-  padding: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease-in-out;
+  margin-left: 12px;
+  &:hover {
+    border-color: #999;
+  }
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
 `;
 
 export const Table = styled.table`
@@ -24,30 +36,3 @@ export const Table = styled.table`
     background-color: #f2f2f2;
   }
 `;
-
-// export const PaginationWrapper = styled.nav`
-//   margin-top: 10px;
-// `;
-
-// export const PaginationList = styled.ul`
-//   display: flex;
-//   list-style-type: none;
-//   padding: 0;
-//   margin: 0;
-
-//   li {
-//     margin-right: 5px;
-
-//     a {
-//       display: inline-block;
-//       padding: 5px 10px;
-//       text-decoration: none;
-//       background-color: ${(props) =>
-//         props.active ? "#f2f2f2" : "transparent"};
-
-//       &:hover {
-//         background-color: #f2f2f2;
-//       }
-//     }
-//   }
-// `;

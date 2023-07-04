@@ -6,13 +6,13 @@ import {
 } from "../CarTable/CarTable.styled";
 import ActionsDropdown from "../ActionsDropdown/ActionsDropdown";
 import Modal from "../Modal/Modal";
-import Pagination from "@mui/material/Pagination"; // Імпорт компонента пагінації
+import Pagination from "@mui/material/Pagination";
 
 const CarTable = () => {
   const [fetchCars, setFetchCars] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1); // Додано стан поточної сторінки
+  const [currentPage, setCurrentPage] = useState(1);
   const [carsPerPage] = useState(10);
 
   useEffect(() => {
@@ -127,6 +127,7 @@ const CarTable = () => {
               <td>{car.availability.toString()}</td>
               <td>
                 <ActionsDropdown
+                  key={car.id}
                   car={car}
                   onEdit={handleEdit}
                   onDelete={handleDelete}
