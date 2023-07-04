@@ -24,9 +24,28 @@ ul {
   justify-content: center;
 }
 
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease-in-out;
+  margin-left: 12px;
+}
+
+input:hover {
+  border-color: #999;
+}
+
+input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
 form {
   display: flex;
   flex-direction: column;
+  text-align: end;
   gap: 12px;
 }
 
