@@ -10,6 +10,21 @@
   -webkit-text-size-adjust: 100%;
 }
 
+p {
+  margin: 0;
+}
+
+h3 {
+  margin: 0;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -31,7 +46,6 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
