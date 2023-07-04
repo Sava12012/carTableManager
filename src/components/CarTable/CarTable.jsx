@@ -15,7 +15,7 @@ const CarTable = () => {
       try {
         const response = await fetch("https://myfakeapi.com/api/cars/");
         const data = await response.json();
-        console.log(data.cars, "data");
+        // console.log(data.cars, "data");
         setFetchCars(data.cars);
       } catch (error) {
         console.log("Error fetching car data:", error);
@@ -58,10 +58,25 @@ const CarTable = () => {
   };
 
   const handleEdit = (car) => {
-    console.log("Edit record:", car);
+    console.log("car", car);
+    const updatedCars = fetchCars.map((auto) => {
+      // console.log("at", auto);
+      // console.log("car", car);
+      if (auto.id === car.id) {
+        console.log("True");
+        console.log("a", auto);
+        console.log("c", car);
+        auto = { ...auto, ...car };
+      }
+      return auto;
+    });
+
+    console.log("UpCars", updatedCars);
+    setFetchCars(updatedCars);
   };
 
   const handleDelete = (id) => {
+    console.log(id);
     const updatedCars = fetchCars.filter((car) => car.id !== id);
     setFetchCars(updatedCars);
   };

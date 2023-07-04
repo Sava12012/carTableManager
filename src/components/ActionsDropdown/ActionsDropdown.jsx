@@ -6,14 +6,14 @@ const ActionsDropdown = ({ car, onEdit, onDelete }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const handleOptionChange = (e) => {
-    setSelectedOption(e.target.value);
-    if (e.target.value === "edit") {
-      setIsEditModalOpen(true);
-    } else if (e.target.value === "delete") {
-      setIsDeleteModalOpen(true);
-    }
-  };
+  // const handleOptionChange = (e) => {
+  //   setSelectedOption(e.target.value);
+  //   if (e.target.value === "edit") {
+  //     setIsEditModalOpen(true);
+  //   } else if (e.target.value === "delete") {
+  //     setIsDeleteModalOpen(true);
+  //   }
+  // };
 
   const handleEditModalClose = () => {
     setIsEditModalOpen(false);
@@ -23,12 +23,14 @@ const ActionsDropdown = ({ car, onEdit, onDelete }) => {
     setIsDeleteModalOpen(false);
   };
 
-  const handleConfirmAction = () => {
+  const handleConfirmAction = (updatedCar) => {
+    console.log(selectedOption);
     if (selectedOption === "edit") {
-      onEdit(car);
+      onEdit(updatedCar);
     } else if (selectedOption === "delete") {
       onDelete(car.id);
     }
+
     setIsEditModalOpen(false);
     setIsDeleteModalOpen(false);
   };
@@ -36,10 +38,20 @@ const ActionsDropdown = ({ car, onEdit, onDelete }) => {
   return (
     <>
       <div>
-        <button value="edit" onClick={handleOptionChange}>
+        <button
+          onClick={() => {
+            setSelectedOption("edit");
+            setIsEditModalOpen(true);
+          }}
+        >
           Edit
         </button>
-        <button value="delete" onClick={handleOptionChange}>
+        <button
+          onClick={() => {
+            setIsDeleteModalOpen(true);
+            setSelectedOption("delete");
+          }}
+        >
           Delete
         </button>
       </div>
@@ -47,6 +59,7 @@ const ActionsDropdown = ({ car, onEdit, onDelete }) => {
         <Modal
           onClose={handleEditModalClose}
           carData={{
+            id: car.id,
             company: car.car,
             model: car.car_model,
             vin: car.car_vin,

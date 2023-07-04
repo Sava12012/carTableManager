@@ -1,32 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { ModalOverlay, ModalContent } from "../Modal/Modal.styled";
 
 const Modal = ({ onClose, carData, onSave, isDeleteModal, isEditModal }) => {
-  const [color, setColor] = useState(carData.color);
-  const [price, setPrice] = useState(carData.price);
-  const [availability, setAvailability] = useState(carData.availability);
+  const { handleSubmit, register } = useForm();
 
-  const handleColorChange = (e) => {
-    setColor(e.target.value);
-  };
-
-  const handlePriceChange = (e) => {
-    setPrice(e.target.value);
-  };
-
-  const handleAvailabilityChange = (e) => {
-    setAvailability(e.target.value);
-  };
-
-  const handleSave = () => {
+  const handleFormSubmit = (data) => {
     const updatedCar = {
       ...carData,
-      car_color: color,
-      price: price,
-      availability: availability,
+      car_color: data.color,
+      price: data.price,
+      availability: data.availability,
     };
 
     onSave(updatedCar);
+    onClose();
+  };
+
+  const handleDeleteBtnClik = () => {
+    onSave();
     onClose();
   };
 
@@ -39,26 +31,23 @@ const Modal = ({ onClose, carData, onSave, isDeleteModal, isEditModal }) => {
         <p>VIN: {carData.vin}</p>
         <p>Year: {carData.year}</p>
         {isEditModal && (
-          <>
+          <form onSubmit={handleSubmit(handleFormSubmit)}>
             <label>
               Color:
-              <input type="text" value={color} onChange={handleColorChange} />
+              <input {...register("color")} />
             </label>
             <label>
               Price:
-              <input type="text" value={price} onChange={handlePriceChange} />
+              <input {...register("price")} />
             </label>
             <label>
               Availability:
-              <input
-                type="text"
-                value={availability}
-                onChange={handleAvailabilityChange}
-              />
+              <input {...register("availability")} />
             </label>
-          </>
+            <button type="submit">Save</button>
+          </form>
         )}
-        <button onClick={handleSave}>{isEditModal ? "Save" : "Delete"}</button>
+        {isDeleteModal && <button onClick={handleDeleteBtnClik}>Delete</button>}
         <button onClick={onClose}>Close</button>
       </ModalContent>
     </ModalOverlay>
