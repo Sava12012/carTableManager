@@ -19,6 +19,12 @@ h3 {
   text-align: center;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

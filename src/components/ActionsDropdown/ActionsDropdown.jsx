@@ -1,19 +1,14 @@
 import React, { useState } from "react";
 import Modal from "../Modal/Modal";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 const ActionsDropdown = ({ car, onEdit, onDelete }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-  // const handleOptionChange = (e) => {
-  //   setSelectedOption(e.target.value);
-  //   if (e.target.value === "edit") {
-  //     setIsEditModalOpen(true);
-  //   } else if (e.target.value === "delete") {
-  //     setIsDeleteModalOpen(true);
-  //   }
-  // };
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleEditModalClose = () => {
     setIsEditModalOpen(false);
@@ -24,7 +19,6 @@ const ActionsDropdown = ({ car, onEdit, onDelete }) => {
   };
 
   const handleConfirmAction = (updatedCar) => {
-    console.log(selectedOption);
     if (selectedOption === "edit") {
       onEdit(updatedCar);
     } else if (selectedOption === "delete") {
@@ -33,28 +27,51 @@ const ActionsDropdown = ({ car, onEdit, onDelete }) => {
 
     setIsEditModalOpen(false);
     setIsDeleteModalOpen(false);
+    setAnchorEl(null);
+  };
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
   };
 
   return (
     <>
-      <div>
-        <button
+      <Button
+        aria-controls="actions-dropdown-menu"
+        aria-haspopup="true"
+        onClick={handleMenuOpen}
+      >
+        Options
+      </Button>
+      <Menu
+        id="actions-dropdown-menu"
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem
           onClick={() => {
             setSelectedOption("edit");
             setIsEditModalOpen(true);
+            handleMenuClose();
           }}
         >
           Edit
-        </button>
-        <button
+        </MenuItem>
+        <MenuItem
           onClick={() => {
-            setIsDeleteModalOpen(true);
             setSelectedOption("delete");
+            setIsDeleteModalOpen(true);
+            handleMenuClose();
           }}
         >
           Delete
-        </button>
-      </div>
+        </MenuItem>
+      </Menu>
       {isEditModalOpen && (
         <Modal
           onClose={handleEditModalClose}
