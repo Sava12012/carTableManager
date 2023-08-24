@@ -5,7 +5,7 @@ export const TitleWrapper = styled.h1`
   margin-top: 20px;
   gap: 10px;
   text-shadow: 1px 1px 2px #f6d9d0, 0 0 0.1em #ffe2ec, 0 0 0.2em #dbf5ff;
-  @media (min-width: 1440px) {
+  @media (min-width: 776px) {
     justify-content: center;
     text-align: center;
   }

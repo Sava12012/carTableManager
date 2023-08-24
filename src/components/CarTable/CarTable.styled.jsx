@@ -62,3 +62,7 @@ export const Table = styled.table`
     background-color: #f3f3f3;
   }
 `;
+
+export const TableWrapper = styled.div`
+  overflow-x: auto;
+`;

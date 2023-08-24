@@ -65,11 +65,10 @@ a:hover {
 }
 
 h1 {
-  line-height: 1.1;
-  font-size: 54px;
-
-  @media (min-width: 1440px) {
+  font-size: 36px;
+  @media (min-width: 776px) {
     font-size: 74px;
+    line-height: 1.1;
   }
 }
 

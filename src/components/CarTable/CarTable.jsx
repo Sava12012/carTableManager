@@ -4,6 +4,7 @@ import {
   SearchInput,
   Table,
   ButtonWrapper,
+  TableWrapper,
 } from "../CarTable/CarTable.styled";
 import ActionsDropdown from "../ActionsDropdown/ActionsDropdown";
 import Modal from "../Modal/Modal";
@@ -110,40 +111,45 @@ const CarTable = () => {
           onChange={(e) => setSearchValue(e.target.value)}
         />
       </ButtonWrapper>
-      <Table>
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th>Model</th>
-            <th>VIN</th>
-            <th>Color</th>
-            <th>Year</th>
-            <th>Price</th>
-            <th>Availability</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentCars.map((car) => (
-            <tr key={car.id}>
-              <td>{car.car}</td>
-              <td>{car.car_model}</td>
-              <td>{car.car_vin}</td>
-              <td>{car.car_color}</td>
-              <td>{car.car_model_year}</td>
-              <td>{car.price}</td>
-              <td>{car.availability.toString()}</td>
-              <td>
-                <ActionsDropdown
-                  car={car}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
-                />
-              </td>
+      <TableWrapper>
+        <Table>
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Model</th>
+              <th>VIN</th>
+              <th>Color</th>
+              <th>Year</th>
+              <th>Price</th>
+              <th>Availability</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {currentCars.map((car) => (
+              <tr key={car.id}>
+                <td>{car.car}</td>
+                <td>{car.car_model}</td>
+                <td>{car.car_vin}</td>
+                <td>{car.car_color}</td>
+                <td>{car.car_model_year}</td>
+                <td>{car.price}</td>
+                <td>{car.availability.toString()}</td>
+                <td>
+                  <div>
+                    <ActionsDropdown
+                      car={car}
+                      onEdit={handleEdit}
+                      onDelete={handleDelete}
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </TableWrapper>
+
       {isAddModalOpen && (
         <Modal onClose={handleAddModalClose} onSave={handleAddCar} isAddModal />
       )}
