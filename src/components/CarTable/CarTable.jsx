@@ -3,10 +3,13 @@ import {
   CarTableWrapper,
   SearchInput,
   Table,
+  ButtonWrapper,
+  TableWrapper,
 } from "../CarTable/CarTable.styled";
 import ActionsDropdown from "../ActionsDropdown/ActionsDropdown";
 import Modal from "../Modal/Modal";
 import Pagination from "@mui/material/Pagination";
+import Button from "../Button/Button";
 
 const CarTable = () => {
   const [fetchCars, setFetchCars] = useState([]);
@@ -97,47 +100,56 @@ const CarTable = () => {
 
   return (
     <CarTableWrapper>
-      <button onClick={handleAddModalOpen}>Add car</button>
-      <SearchInput
-        type="text"
-        placeholder="Search"
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
-      />
-      <Table>
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th>Model</th>
-            <th>VIN</th>
-            <th>Color</th>
-            <th>Year</th>
-            <th>Price</th>
-            <th>Availability</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentCars.map((car) => (
-            <tr key={car.id}>
-              <td>{car.car}</td>
-              <td>{car.car_model}</td>
-              <td>{car.car_vin}</td>
-              <td>{car.car_color}</td>
-              <td>{car.car_model_year}</td>
-              <td>{car.price}</td>
-              <td>{car.availability.toString()}</td>
-              <td>
-                <ActionsDropdown
-                  car={car}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
-                />
-              </td>
+      <ButtonWrapper>
+        <Button type="submit" onClick={handleAddModalOpen} text="Add car">
+          Add Car
+        </Button>
+        <SearchInput
+          type="text"
+          placeholder="Search"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
+      </ButtonWrapper>
+      <TableWrapper>
+        <Table>
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Model</th>
+              <th>VIN</th>
+              <th>Color</th>
+              <th>Year</th>
+              <th>Price</th>
+              <th>Availability</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {currentCars.map((car) => (
+              <tr key={car.id}>
+                <td>{car.car}</td>
+                <td>{car.car_model}</td>
+                <td>{car.car_vin}</td>
+                <td>{car.car_color}</td>
+                <td>{car.car_model_year}</td>
+                <td>{car.price}</td>
+                <td>{car.availability.toString()}</td>
+                <td>
+                  <div>
+                    <ActionsDropdown
+                      car={car}
+                      onEdit={handleEdit}
+                      onDelete={handleDelete}
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </TableWrapper>
+
       {isAddModalOpen && (
         <Modal onClose={handleAddModalClose} onSave={handleAddCar} isAddModal />
       )}
@@ -145,6 +157,7 @@ const CarTable = () => {
         count={Math.ceil(filterFetchCars().length / carsPerPage)}
         page={currentPage}
         onChange={handlePageChange}
+        style={{ marginTop: "20px" }}
       />
     </CarTableWrapper>
   );

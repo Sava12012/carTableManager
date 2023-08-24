@@ -1,12 +1,14 @@
 import React from "react";
+import Layout from "./components/Leyout/Leyout";
+import ProductTitle from "./components/ProductTitle/ProductTitle";
 import CarTable from "./components/CarTable/CarTable";
 
 function App() {
   return (
-    <div>
-      <h1>Car Table</h1>
+    <Layout>
+      <ProductTitle />
       <CarTable />
-    </div>
+    </Layout>
   );
 }
 
