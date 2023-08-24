@@ -3,10 +3,12 @@ import {
   CarTableWrapper,
   SearchInput,
   Table,
+  ButtonWrapper,
 } from "../CarTable/CarTable.styled";
 import ActionsDropdown from "../ActionsDropdown/ActionsDropdown";
 import Modal from "../Modal/Modal";
 import Pagination from "@mui/material/Pagination";
+import Button from "../Button/Button";
 
 const CarTable = () => {
   const [fetchCars, setFetchCars] = useState([]);
@@ -97,13 +99,15 @@ const CarTable = () => {
 
   return (
     <CarTableWrapper>
-      <button onClick={handleAddModalOpen}>Add car</button>
-      <SearchInput
-        type="text"
-        placeholder="Search"
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
-      />
+      <ButtonWrapper>
+        <Button text="Add car" onClick={handleAddModalOpen} />
+        <SearchInput
+          type="text"
+          placeholder="Search"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
+      </ButtonWrapper>
       <Table>
         <thead>
           <tr>
@@ -145,6 +149,7 @@ const CarTable = () => {
         count={Math.ceil(filterFetchCars().length / carsPerPage)}
         page={currentPage}
         onChange={handlePageChange}
+        style={{ marginTop: "20px" }}
       />
     </CarTableWrapper>
   );
