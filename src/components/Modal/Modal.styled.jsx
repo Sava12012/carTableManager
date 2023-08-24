@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const ModalBtnWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+`;
+
 export const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -15,8 +22,9 @@ export const ModalOverlay = styled.div`
 export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  justify-content: center;
   background-color: #fff;
   padding: 20px;
   border-radius: 4px;
+  gap: 20px;
 `;

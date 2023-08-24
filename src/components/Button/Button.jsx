@@ -2,10 +2,10 @@
 import React from "react";
 import { Btn } from "./Button.styled";
 
-const CustomButton = ({ onClick }) => {
+const CustomButton = ({ onClick, children }) => {
   return (
     <div>
-      <Btn onClick={onClick}>Add car</Btn>
+      <Btn onClick={onClick}>{children}</Btn>
     </div>
   );
 };

@@ -100,7 +100,9 @@ const CarTable = () => {
   return (
     <CarTableWrapper>
       <ButtonWrapper>
-        <Button text="Add car" onClick={handleAddModalOpen} />
+        <Button type="submit" onClick={handleAddModalOpen} text="Add car">
+          Add Car
+        </Button>
         <SearchInput
           type="text"
           placeholder="Search"

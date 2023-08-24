@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { ModalOverlay, ModalContent } from "./Modal.styled";
+import { ModalOverlay, ModalContent, ModalBtnWrapper } from "./Modal.styled";
+import Button from "../Button/Button";
 
 const Modal = ({
   onClose,
@@ -88,7 +89,10 @@ const Modal = ({
               Availability:
               <input {...register("availability")} />
             </label>
-            <button type="submit">Save</button>
+            <ModalBtnWrapper>
+              <Button type="submit">Save</Button>
+              <Button onClick={onClose}>Close</Button>
+            </ModalBtnWrapper>
           </form>
         )}
         {!isAddModal && (
@@ -111,16 +115,24 @@ const Modal = ({
                   Availability:
                   <input {...register("availability")} />
                 </label>
-                <button type="submit">Save</button>
+                <ModalBtnWrapper>
+                  <Button type="submit">Save</Button>
+                  {!isAddModal && !isDeleteModal && (
+                    <ModalBtnWrapper>
+                      <Button onClick={onClose}>Close</Button>
+                    </ModalBtnWrapper>
+                  )}
+                </ModalBtnWrapper>
               </form>
             )}
           </>
         )}
-        {!isAddModal && !isDeleteModal && (
-          <button onClick={onClose}>Close</button>
-        )}
+
         {isDeleteModal && (
-          <button onClick={handleDeleteBtnClick}>Delete</button>
+          <ModalBtnWrapper>
+            <Button onClick={handleDeleteBtnClick}>Delete</Button>
+            <Button onClick={onClose}>Close</Button>
+          </ModalBtnWrapper>
         )}
       </ModalContent>
     </ModalOverlay>

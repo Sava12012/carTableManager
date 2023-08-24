@@ -13,7 +13,7 @@ const glowingAnimation = keyframes`
 `;
 
 export const Btn = styled.button`
-  padding: 0.6em 2em;
+  padding: 14px 14px;
   border: none;
   outline: none;
   color: rgb(255, 255, 255);
@@ -25,6 +25,11 @@ export const Btn = styled.button`
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+
+  @media (min-width: 1440px) {
+    font-size: 14px;
+    padding: 14px 24px;
+  }
 
   &:before {
     content: "";
