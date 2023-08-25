@@ -1,13 +1,14 @@
 import React from "react";
 import Layout from "./components/Leyout/Leyout";
-import ProductTitle from "./components/ProductTitle/ProductTitle";
-import CarTable from "./components/CarTable/CarTable";
+import Home from "./page/Home/HomePage.jsx";
+import AboutCar from "./page/AboutCar/AboutCar.jsx";
+
 
 function App() {
   return (
     <Layout>
-      <ProductTitle />
-      <CarTable />
+        {/*<Home />*/}
+        <AboutCar />
     </Layout>
   );
 }

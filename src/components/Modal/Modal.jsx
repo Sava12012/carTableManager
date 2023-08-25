@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { ModalOverlay, ModalContent, ModalBtnWrapper } from "./Modal.styled";
+import { ModalOverlay, ModalContent, ModalBtnWrapper } from "./Modal.styled.js";
 import Button from "../Button/Button";
 
 const Modal = ({
