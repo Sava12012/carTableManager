@@ -3,44 +3,44 @@ import {
   CarTableWrapper,
   SearchInput,
   Table,
+  ButtonWrapper,
+  TableWrapper,
 } from "../CarTable/CarTable.styled";
 import ActionsDropdown from "../ActionsDropdown/ActionsDropdown";
+import Modal from "../Modal/Modal";
+import Pagination from "@mui/material/Pagination";
+import Button from "../Button/Button";
 
 const CarTable = () => {
   const [fetchCars, setFetchCars] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [carsPerPage] = useState(10);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://myfakeapi.com/api/cars/");
+        const data = await response.json();
+        setFetchCars(data.cars);
+      } catch (error) {
+        console.log("Error fetching car data:", error);
+      }
+    };
+
     const carsData = JSON.parse(localStorage.getItem("cars"));
-    if (carsData && carsData.length !== 0) {
+    if (carsData && carsData.length) {
       setFetchCars(carsData);
-    } else if (!setFetchCars) {
-      const fetchData = async () => {
-        try {
-          const response = await fetch("https://myfakeapi.com/api/cars/");
-          const data = await response.json();
-          // console.log(data.cars, "data");
-          setFetchCars(data.cars);
-        } catch (error) {
-          console.log("Error fetching car data:", error);
-        }
-      };
+    } else {
       fetchData();
     }
   }, []);
 
   useEffect(() => {
-    // Зберігаємо список автомобілів у локальному сховищі браузера
-    localStorage.setItem("cars", JSON.stringify(fetchCars));
+    if (fetchCars.length != 0)
+      localStorage.setItem("cars", JSON.stringify(fetchCars));
   }, [fetchCars]);
-
-  useEffect(() => {
-    // Отримуємо список автомобілів з локального сховища браузера при завантаженні сторінки
-    // const carsData = localStorage.getItem("cars");
-    // if (carsData) {
-    //   setFetchCars(JSON.parse(carsData));
-    // }
-  }, []);
 
   const filterFetchCars = () => {
     if (!fetchCars) return [];
@@ -64,7 +64,7 @@ const CarTable = () => {
   const handleEdit = (car) => {
     const updatedCars = fetchCars.map((auto) => {
       if (auto.id === car.id) {
-        auto = { ...auto, ...car };
+        return { ...auto, ...car };
       }
       return auto;
     });
@@ -76,53 +76,89 @@ const CarTable = () => {
     setFetchCars(updatedCars);
   };
 
-  // const handleAddModalOpen = () => {
-  //   setIsAddModalOpen(true);
-  // };
+  const handleAddModalOpen = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const handleAddModalClose = () => {
+    setIsAddModalOpen(false);
+  };
+
+  const handleAddCar = (car) => {
+    const updatedCars = [car, ...fetchCars];
+    setFetchCars(updatedCars);
+    setIsAddModalOpen(false);
+  };
+
+  const handlePageChange = (event, page) => {
+    setCurrentPage(page);
+  };
+
+  const indexOfLastCar = currentPage * carsPerPage;
+  const indexOfFirstCar = indexOfLastCar - carsPerPage;
+  const currentCars = filterFetchCars().slice(indexOfFirstCar, indexOfLastCar);
 
   return (
     <CarTableWrapper>
-      {/* <button onClick={handleAddModalOpen}>Add car</button> */}
-      <SearchInput
-        type="text"
-        placeholder="Search"
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
-      />
-      <Table>
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th>Model</th>
-            <th>VIN</th>
-            <th>Color</th>
-            <th>Year</th>
-            <th>Price</th>
-            <th>Availability</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filterFetchCars().map((car) => (
-            <tr key={car.id}>
-              <td>{car.car}</td>
-              <td>{car.car_model}</td>
-              <td>{car.car_vin}</td>
-              <td>{car.car_color}</td>
-              <td>{car.car_model_year}</td>
-              <td>{car.price}</td>
-              <td>{car.availability.toString()}</td>
-              <td>
-                <ActionsDropdown
-                  car={car}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
-                />
-              </td>
+      <ButtonWrapper>
+        <Button type="submit" onClick={handleAddModalOpen} text="Add car">
+          Add Car
+        </Button>
+        <SearchInput
+          type="text"
+          placeholder="Search"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
+      </ButtonWrapper>
+      <TableWrapper>
+        <Table>
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Model</th>
+              <th>VIN</th>
+              <th>Color</th>
+              <th>Year</th>
+              <th>Price</th>
+              <th>Availability</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {currentCars.map((car) => (
+              <tr key={car.id}>
+                <td>{car.car}</td>
+                <td>{car.car_model}</td>
+                <td>{car.car_vin}</td>
+                <td>{car.car_color}</td>
+                <td>{car.car_model_year}</td>
+                <td>{car.price}</td>
+                <td>{car.availability.toString()}</td>
+                <td>
+                  <div>
+                    <ActionsDropdown
+                      car={car}
+                      onEdit={handleEdit}
+                      onDelete={handleDelete}
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </TableWrapper>
+
+      {isAddModalOpen && (
+        <Modal onClose={handleAddModalClose} onSave={handleAddCar} isAddModal />
+      )}
+      <Pagination
+        count={Math.ceil(filterFetchCars().length / carsPerPage)}
+        page={currentPage}
+        onChange={handlePageChange}
+        style={{ marginTop: "20px" }}
+      />
     </CarTableWrapper>
   );
 };
