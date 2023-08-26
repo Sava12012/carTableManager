@@ -31,7 +31,7 @@ function CarGallerySearch() {
                 <SearchIcon />
             </div>
     <div style={{display: "flex", justifyContent: "center",
-            alignItems: "center"}}>
+            alignItems: "center", marginTop: "30px"}}>
         <SearchInput  type="text" placeholder="Search" onChange={(event) => {
             setSearchedText(event.target.value);
         }} />

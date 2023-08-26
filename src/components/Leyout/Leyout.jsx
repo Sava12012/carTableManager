@@ -2,6 +2,7 @@ import { CategoryWrapper, HeaderWrapper, LayoutWrapper } from "./Leyout.styled.j
 import { Link, Outlet, NavLink } from "react-router-dom";
 import LogoIcon from "../LogoIcon/LogoIcon.jsx";
 
+
 const Layout = () => {
     return (
         <LayoutWrapper>
@@ -15,7 +16,6 @@ const Layout = () => {
                         <NavLink to="/carGallerySearch">Gallery</NavLink>
                     </CategoryWrapper>
                 </HeaderWrapper>
-
             </nav>
 
             <Outlet />

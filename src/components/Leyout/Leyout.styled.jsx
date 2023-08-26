@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const LayoutWrapper = styled.div`
   margin: 20px;
+  position: relative;
 `;
 export const HeaderWrapper = styled.div`
   display: flex;
@@ -17,7 +18,7 @@ export const CategoryWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 50px;
+  gap: 30px;
   font-size: 30px;
 
   .active {
