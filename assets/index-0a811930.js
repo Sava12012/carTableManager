@@ -98,7 +98,7 @@ Error generating stack: `+i.message+`
     height: 150px;
     fill: #8383ff;
   }
-`,NS=()=>E.jsx(OS,{children:E.jsx(IS,{})}),MS=()=>E.jsxs(RS,{children:[E.jsx("nav",{children:E.jsxs(_S,{children:[E.jsx(T0,{to:"/",children:E.jsx(NS,{})}),E.jsxs(TS,{children:[E.jsx(Fp,{to:"/",activeClassName:"active",children:"Home"}),E.jsx(Fp,{to:"/carGallerySearch",activeClassName:"active",children:"Gallery"})]})]})}),E.jsx(m2,{})]}),LS=Pe.div``,jS=Pe.div`
+`,NS=()=>E.jsx(OS,{children:E.jsx(IS,{})}),MS=()=>E.jsxs(RS,{children:[E.jsx("nav",{children:E.jsxs(_S,{children:[E.jsx(T0,{to:"/",children:E.jsx(NS,{})}),E.jsxs(TS,{children:[E.jsx(Fp,{to:"/",children:"Home"}),E.jsx(Fp,{to:"/carGallerySearch",children:"Gallery"})]})]})}),E.jsx(m2,{})]}),LS=Pe.div``,jS=Pe.div`
   display: flex;
   justify-content: space-between;
   text-align: center;
