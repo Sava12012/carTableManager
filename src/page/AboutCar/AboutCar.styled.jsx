@@ -1,4 +1,11 @@
 import styled from "styled-components";
+import { ImageListItem } from "@mui/material";
+
+export const StyledImageListItem = styled(ImageListItem)`
+  padding: 6px;
+  background-color: #8383ff;
+  border-radius: 10px;
+`;
 
 
 export const Title = styled.h1`
@@ -24,6 +31,7 @@ export const StyledImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 10px;
 
   transition: transform 0.5s;
 
@@ -35,5 +43,7 @@ export const StyledImage = styled.img`
     transform: scale(1.08);
   }
 `;
+
+
 
 

@@ -1,9 +1,10 @@
-import { Title, StyledImage, StyledImageList } from "./AboutCar.styled.jsx";
-import { ImageListItem, CircularProgress } from "@mui/material";
+
 import { useEffect, useState } from "react";
+import { Title, StyledImage, StyledImageList, StyledImageListItem } from "./AboutCar.styled.jsx";
 import { searchUnsplash } from '../../API/unsplashAPI.js';
 import CenteredTextField from '../../components/CenteredTextField/CenteredTextField.jsx';
 import ImageModal from '../../components/Modal/ImageModal.jsx';
+import Loader from '../../components/Loader/Loader.jsx'
 
 function AboutCar() {
     const [searchedText, setSearchedText] = useState("");
@@ -25,27 +26,32 @@ function AboutCar() {
             <CenteredTextField onChange={(event) => {
                 setSearchedText(event.target.value);
             }} />
-            <div>
-                {loading && <CircularProgress />}
-            </div>
 
             <StyledImageList>
-                {dataSource.map((item) => (
-                    <ImageListItem key={item.id}>
-                        <StyledImage
-                            src={item.urls.small}
-                            alt={item.alt_description}
-                            loading="lazy"
-                            onClick={() => setSelectedImage(item)}
-                        />
-                    </ImageListItem>
-                ))}
+                {loading ? (
+                    <Loader/>
+                ) : (
+                    dataSource.map((item) => (
+                        <StyledImageListItem key={item.id}>
+                            <StyledImage
+                                src={item.urls.small}
+                                alt={item.image}
+                                loading="lazy"
+                                onClick={() => setSelectedImage(item)}
+
+
+                            />
+                        </StyledImageListItem>
+                    ))
+                )}
             </StyledImageList>
+
 
             <ImageModal
                 open={selectedImage !== null}
                 onClose={() => setSelectedImage(null)}
                 image={selectedImage}
+                dataSource={dataSource}
             />
         </>
     );

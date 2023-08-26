@@ -21,7 +21,7 @@ yarn-error.log*
 # Editor directories and files
 /.vscode
 /.idea
-/.env.local
+/.env
 .env.development.local
 .env.test.local
 .env.production.local
