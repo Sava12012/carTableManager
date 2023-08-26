@@ -11,8 +11,8 @@ const Layout = () => {
                         <LogoIcon />
                     </Link>
                     <CategoryWrapper>
-                        <NavLink to="/" activeClassName="active">Home</NavLink>
-                        <NavLink to="/carGallerySearch" activeClassName="active">Gallery</NavLink>
+                        <NavLink to="/">Home</NavLink>
+                        <NavLink to="/carGallerySearch">Gallery</NavLink>
                     </CategoryWrapper>
                 </HeaderWrapper>
 
