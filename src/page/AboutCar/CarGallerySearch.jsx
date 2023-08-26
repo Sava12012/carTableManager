@@ -1,12 +1,15 @@
 
-import { useEffect, useState } from "react";
-import { Title, StyledImage, StyledImageList, StyledImageListItem } from "./AboutCar.styled.jsx";
+import React, { useEffect, useState } from "react";
+import { Title, StyledImage, StyledImageList, StyledImageListItem } from "./CarGallerySearch.styled.js";
 import { searchUnsplash } from '../../API/unsplashAPI.js';
-import CenteredTextField from '../../components/CenteredTextField/CenteredTextField.jsx';
+
 import ImageModal from '../../components/Modal/ImageModal.jsx';
 import Loader from '../../components/Loader/Loader.jsx'
+import SearchIcon from "../../components/SearchIcon/SearchIcon.jsx";
+import {SearchInput} from "../../components/CarTable/CarTable.styled.jsx";
 
-function AboutCar() {
+
+function CarGallerySearch() {
     const [searchedText, setSearchedText] = useState("");
     const [dataSource, setDataSource] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -22,10 +25,18 @@ function AboutCar() {
 
     return (
         <>
-            <Title>Search</Title>
-            <CenteredTextField onChange={(event) => {
-                setSearchedText(event.target.value);
-            }} />
+            <div style={{display: "flex", justifyContent: "center",
+                alignItems: "center", gap: "20px"}}>
+                <Title>Search</Title>
+                <SearchIcon />
+            </div>
+    <div style={{display: "flex", justifyContent: "center",
+            alignItems: "center"}}>
+        <SearchInput  type="text" placeholder="Search" onChange={(event) => {
+            setSearchedText(event.target.value);
+        }} />
+    </div>
+
 
             <StyledImageList>
                 {loading ? (
@@ -57,4 +68,4 @@ function AboutCar() {
     );
 }
 
-export default AboutCar;
+export default CarGallerySearch;

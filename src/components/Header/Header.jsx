@@ -6,8 +6,7 @@ function Header() {
     <HeaderWrapper>
       <LogoIcon />
       <CategoryWrapper>
-        <div>Category</div>
-        <div>About Car</div>
+        <div>Car Gallery</div>
         <div>Contact</div>
       </CategoryWrapper>
     </HeaderWrapper>

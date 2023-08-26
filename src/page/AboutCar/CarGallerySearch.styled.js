@@ -12,15 +12,16 @@ export const Title = styled.h1`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #8383ff;
 `;
 
 export const StyledImageList = styled.div`
-  margin-top: 20px;
+  margin-top: 30px;
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
+  gap: 12px;
 
   @media (max-width: 776px) {
     grid-template-columns: repeat(1, 1fr);

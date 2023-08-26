@@ -15,7 +15,6 @@ export const SearchInput = styled.input`
   outline: none;
   color: #fff;
   background: #111;
-
   border-radius: 10px;
   transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
