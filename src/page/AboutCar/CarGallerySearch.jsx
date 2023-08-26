@@ -16,11 +16,15 @@ function CarGallerySearch() {
     const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
-        setLoading(true);
-        searchUnsplash(searchedText).then((results) => {
-            setLoading(false);
-            setDataSource(results);
-        });
+        const timeoutId = setTimeout(() => {
+            setLoading(true);
+            searchUnsplash(searchedText).then((results) => {
+                setLoading(false);
+                setDataSource(results);
+            });
+        }, 1000);
+
+        return () => clearTimeout(timeoutId);
     }, [searchedText]);
 
     return (
@@ -40,7 +44,8 @@ function CarGallerySearch() {
 
             <StyledImageList>
                 {loading ? (
-                    <Loader/>
+                        <Loader/>
+
                 ) : (
                     dataSource.map((item) => (
                         <StyledImageListItem key={item.id}>

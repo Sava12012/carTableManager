@@ -23,6 +23,7 @@ export const StyledImageList = styled.div`
   grid-template-columns: repeat(5, 1fr);
   gap: 12px;
 
+  
   @media (max-width: 776px) {
     grid-template-columns: repeat(1, 1fr);
   }
